@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sorting Visualizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+  <div class="bg-glow glow-3"></div>
+
+  <div id="app">
+
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-eyebrow">
+        <span class="dot dot-purple"></span>
+        <span class="dot dot-cyan"></span>
+        <span class="dot dot-green"></span>
+        <span class="eyebrow-text">visualize and sort</span>
+      </div>
+      <h1 class="header-title">Sorting Visualizer</h1>
+      <p class="header-sub">9 algorithms &nbsp;&bull;&nbsp; real-time color coding &nbsp;&bull;&nbsp; sound synthesis &nbsp;&bull;&nbsp; complexity analysis</p>
+    </header>
+
+    <!-- INTRO CARD -->
+    <section class="intro-card" id="introCard">
+      <div class="intro-accent-bar"></div>
+      <div class="intro-inner">
+        <div class="intro-icon">⌨</div>
+        <div class="intro-content">
+          <h2 class="intro-title">What is Sorting?</h2>
+          <p class="intro-text">
+            <strong>Sorting</strong> is the process of rearranging elements into a specific order — ascending, descending, or by custom criteria. It's one of the most studied problems in computer science, forming the backbone of databases, search engines, and countless real-world applications.
+          </p>
+          <p class="intro-text" style="margin-top:10px;">
+            Algorithms split into two families: <strong class="text-purple">Comparison Sorts</strong> (Bubble, Selection, Insertion, Merge, Quick, Heap) which work by comparing elements head-to-head — bounded by <em>O(n log n)</em> in theory — and <strong class="text-cyan">Non-Comparison Sorts</strong> (Counting, Radix, Bucket) which exploit element structure to achieve linear <em>O(n)</em> time under the right conditions.
+          </p>
+          <div class="intro-tags">
+            <span class="tag tag-purple">Comparison Sort</span>
+            <span class="tag tag-cyan">Non-Comparison Sort</span>
+            <span class="tag tag-green">O(n log n) optimal</span>
+            <span class="tag tag-amber">Linear time possible</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALGORITHM SELECTOR -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-label">// select algorithm</span>
+        <div class="type-tabs">
+          <button class="type-tab active" data-type="all">All</button>
+          <button class="type-tab" data-type="comparison">Comparison</button>
+          <button class="type-tab" data-type="non-comparison">Non-Comparison</button>
+        </div>
+      </div>
+      <div class="algo-grid" id="algoGrid"></div>
+    </section>
+
+    <!-- CONTROLS -->
+    <section class="controls-bar">
+      <div class="control-group">
+        <label class="control-label" for="sizeSlider">Array Size</label>
+        <input type="range" id="sizeSlider" min="10" max="100" value="45" step="1" />
+        <span class="control-val" id="sizeVal">45</span>
+      </div>
+      <div class="control-divider"></div>
+      <div class="control-group">
+        <label class="control-label" for="speedSlider">Speed</label>
+        <input type="range" id="speedSlider" min="1" max="10" value="6" step="1" />
+        <span class="control-val" id="speedVal">6×</span>
+      </div>
+      <div class="control-divider"></div>
+      <div class="btn-group">
+        <button class="btn btn-primary" id="sortBtn">
+          <span class="btn-icon">▶</span> Sort
+        </button>
+        <button class="btn btn-secondary" id="genBtn">
+          <span class="btn-icon">⟳</span> New Array
+        </button>
+        <button class="btn btn-stop" id="stopBtn" style="display:none">
+          <span class="btn-icon">■</span> Stop
+        </button>
+        <button class="btn btn-sound on" id="soundBtn">
+          <span id="soundIcon">♪</span> <span id="soundLabel">Sound</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- VISUALIZER -->
+    <section class="viz-section">
+      <div class="viz-topbar">
+        <div class="algo-display" id="algoDisplay">
+          <span class="algo-display-name" id="algoDisplayName">Bubble Sort</span>
+          <span class="algo-display-type" id="algoDisplayType">comparison</span>
+        </div>
+        <div class="status-bar" id="statusBar">Select an algorithm and press Sort</div>
+      </div>
+
+      <div class="viz-canvas-wrap">
+        <div class="viz-canvas" id="vizCanvas"></div>
+      </div>
+
+      <div class="viz-footer">
+        <div class="stats-row">
+          <div class="stat-card">
+            <div class="stat-val" id="compCount">0</div>
+            <div class="stat-label">Comparisons</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" id="swapCount">0</div>
+            <div class="stat-label">Swaps / Ops</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" id="timeEl">0ms</div>
+            <div class="stat-label">Elapsed</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-val" id="arraySizeEl">45</div>
+            <div class="stat-label">Array Size</div>
+          </div>
+        </div>
+        <div class="legend">
+          <div class="legend-item"><span class="legend-dot" style="background:#3b3b5c"></span>Default</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#7c3aed"></span>Comparing</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#ef4444"></span>Swapping</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#f59e0b"></span>Pivot / Key</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#06b6d4"></span>Bucket / Aux</div>
+          <div class="legend-item"><span class="legend-dot" style="background:#10b981"></span>Sorted</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPLEXITY PANEL -->
+    <section class="section">
+      <div class="section-header">
+        <span class="section-label">// complexity reference</span>
+      </div>
+      <div class="complexity-grid" id="complexityGrid"></div>
+    </section>
+
+    <footer class="footer">
+      <span class="footer-mono">Manya Singh</span>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
