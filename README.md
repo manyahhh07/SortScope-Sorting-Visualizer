@@ -1,3 +1,5 @@
+<div class="container">
+
 # Sorting Visualizer — Interactive Algorithm Animation Platform
 
 Interactive sorting algorithm visualization platform featuring **real-time animated sorting**, **complexity analysis**, **sound synthesis**, and **comparison vs non-comparison sorting demonstrations**.
