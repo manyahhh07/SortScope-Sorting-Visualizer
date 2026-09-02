@@ -11,6 +11,9 @@ Built entirely with **Vanilla JavaScript**, focused on algorithm education, visu
 ![Visualization](https://img.shields.io/badge/Visualization-RealTime-blue)
 ![Frontend](https://img.shields.io/badge/Frontend-Vanilla_JS-orange)
 ![License](https://img.shields.io/badge/License-MIT-blue)
+]
+
+</div>
 
 ---
 
